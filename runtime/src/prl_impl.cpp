@@ -707,8 +707,15 @@ public:
 
     void copy_to_host (prl_cl_mem dev, size_t size, void *host)
     {
-		stopwatch wtch(accumulated_copy_to_host_time, cpu_profiling_enabled);
+	stopwatch wtch(accumulated_copy_to_host_time, cpu_profiling_enabled);
         memory.copy_to_host (queue, dev, size, host);
+    }
+
+    void wait_pending_transfers() {
+        stopwatch wtch(accumulated_waiting_time, cpu_profiling_enabled);
+        // If we knew all the events that transfer to host, we could also wait only for those.
+        cl_int err = clFinish(queue);
+        OPENCL_ASSERT(err);
     }
 
     cl_command_queue get_command_queue ()
@@ -1221,6 +1228,10 @@ void __int_opencl_copy_to_device (prl_cl_mem dev, size_t size, void *host)
 void __int_opencl_copy_to_host (prl_cl_mem dev, size_t size, void *host)
 {
     runtime::get_session ()->copy_to_host (dev, size, host);
+}
+
+void __int_opencl_wait_pending_transfers() {
+    runtime::get_session ()->wait_pending_transfers();
 }
 
 void *__int_pencil_alloc (size_t size)

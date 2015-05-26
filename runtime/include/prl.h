@@ -96,6 +96,9 @@ extern void prl_copy_to_device (prl_cl_mem, size_t, void *);
 /* Copy device memory buffer to host memory.  */
 extern void prl_copy_to_host (prl_cl_mem, size_t, void *);
 
+/* Wait for transfers to the host to complete */
+extern void prl_wait_pending_transfers();
+
 extern void prl_set_kernel_arg (prl_cl_kernel, cl_uint, size_t,
                                    const void *, int);
 

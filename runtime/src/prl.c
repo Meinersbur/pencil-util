@@ -92,6 +92,10 @@ void prl_copy_to_host (prl_cl_mem dev, size_t size, void *host)
     return __int_opencl_copy_to_host (dev, size, host);
 }
 
+void prl_wait_pending_transfers() {
+    return __int_opencl_wait_pending_transfers();
+}
+
 void *prl_alloc (size_t size)
 {
     return __int_pencil_alloc (size);

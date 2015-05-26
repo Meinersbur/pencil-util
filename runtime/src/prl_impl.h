@@ -50,6 +50,7 @@ extern "C" {
     void __int_opencl_release_buffer (prl_cl_mem);
     void __int_opencl_copy_to_device (prl_cl_mem, size_t, void *);
     void __int_opencl_copy_to_host (prl_cl_mem, size_t, void *);
+    void __int_opencl_wait_pending_transfers();
     void *__int_pencil_alloc (size_t);
     void __int_pencil_free (void *);
     void __int_pencil_init (int n_devices, const cl_device_type * devices, bool cpu_profiling_enabled, bool gpu_profiling_enabled, bool blocking);
